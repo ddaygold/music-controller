@@ -9,14 +9,14 @@ git repo ;)
 
 The credfile is a simple text file with a field per line in this order:
 ```
-    username
-    password (cleartext)
-    email address to notify of muting
-    imap server address
-    imap server port
-    smtp server address
-    smtp server port
-    logfile path
+username
+password (cleartext)
+email address to notify of muting
+imap server address
+imap server port
+smtp server address
+smtp server port
+logfile path
 ```
 
 The credfile path is specified by the -c parameter to the script e.g.
