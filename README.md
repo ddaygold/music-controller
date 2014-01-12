@@ -23,3 +23,8 @@ The credfile path is specified by the -c parameter to the script e.g.
 ```
 python musicctl.py -c credfile
 ```
+
+I run this script every min with this crontab line:
+```
+  * *  *   *   *     python /home/p3t3r/code/music-controller/musicctl.py -c /home/p3t3r/code/music-controller/credfile
+```
