@@ -8,6 +8,7 @@ The credfile is where the login details are stored for use by the script. Obviou
 git repo ;)
 
 The credfile is a simple text file with a field per line in this order:
+```
     username
     password (cleartext)
     email address to notify of muting
@@ -16,6 +17,9 @@ The credfile is a simple text file with a field per line in this order:
     smtp server address
     smtp server port
     logfile path
+```
 
 The credfile path is specified by the -c parameter to the script e.g.
-    python musicctl.py -c credfile
+```
+python musicctl.py -c credfile
+```
