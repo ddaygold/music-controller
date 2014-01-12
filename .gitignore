@@ -34,3 +34,11 @@ nosetests.xml
 .mr.developer.cfg
 .project
 .pydevproject
+
+
+#stuff for this project
+log.log
+credfile
+
+#vim stuff
+*.swp

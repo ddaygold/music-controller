@@ -6,16 +6,12 @@ import email.message as emailmessage
 import subprocess
 import alsaaudio
 import logging
+import argparse
 
 def main():
-    #logging block
-    logger = logging.getLogger('music-controller')
-    logger.setLevel(logging.DEBUG)
-    fh = logging.FileHandler('.music-controller.log')
-    fh.setLevel(logging.DEBUG)
-    formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-    fh.setFormatter(formatter)
-    logger.addHandler(fh)
+    parser = argparse.ArgumentParser(description='Process some integers.')
+    parser.add_argument('-c','--credfile',required=True)
+    args = parser.parse_args()
 
     '''
     The credfile is where the login details are stored for use by the script. Obviously they should not be in the 
@@ -28,11 +24,24 @@ def main():
         imap server port
         smtp server address
         smtp server port
+        logfile path
+
     '''
-    credfile = open('credfile','r')
-    USER,PASS,MAILING_LIST,IMAP_SERVER,IMAP_PORT_STRING,SMTP_SERVER,SMTP_PORT_STRING = [x.strip() for x in credfile.readlines()]
+    credfile = open(args.credfile,'r')
+    USER,PASS,MAILING_LIST,IMAP_SERVER,IMAP_PORT_STRING,SMTP_SERVER,SMTP_PORT_STRING,LOG_FILE = [x.strip() for x in credfile.readlines()]
     IMAP_PORT = int(IMAP_PORT_STRING)
     SMTP_PORT = int(SMTP_PORT_STRING)
+
+    #logging block
+    logger = logging.getLogger('music-controller')
+    logger.setLevel(logging.DEBUG)
+    fh = logging.FileHandler(LOG_FILE)
+    fh.setLevel(logging.DEBUG)
+    formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+    fh.setFormatter(formatter)
+    logger.addHandler(fh)
+    logger.info('Starting up')
+
 
     #THis is the default audio device, which might not work for other people
     m = alsaaudio.Mixer(control='Master',id=0,cardindex=0)
