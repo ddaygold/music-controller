@@ -9,7 +9,7 @@ import logging
 import argparse
 
 def main():
-    parser = argparse.ArgumentParser(description='Process some integers.')
+    parser = argparse.ArgumentParser()
     parser.add_argument('-c','--credfile',required=True)
     args = parser.parse_args()
 
@@ -18,8 +18,9 @@ def main():
     git repo ;)
 
     The credfile is a simple text file with a field per line in this order:
-        username 
+        username
         password (cleartext)
+        email address to notify of muting
         imap server address
         imap server port
         smtp server address
@@ -67,6 +68,11 @@ def main():
         if subject.startswith('MUTE'):
             logger.info('Found a mute command, muting')
             m.setmute(1)
+            msg = emailmessage.Message()
+            msg['To'] = MAILING_LIST
+            msg['From'] = USER
+            msg['Subject'] = str(datetime.datetime.now()) + ' Muting'
+            sender.sendmail(USER,MAILING_LIST,str(msg))
         logger.info('Deleting '+subject)
         recv.store(target,'+FLAGS','\\Deleted')
         recv.expunge()
